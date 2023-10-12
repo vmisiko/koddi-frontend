@@ -13,7 +13,7 @@ const BikeListItem = ({ bike }: { bike: Bike }) => {
                 <img className="h-14 w-14 rounded-sm" src={bike.thumb} alt={bike.title} />
             </div>
             <div className=" ">
-                <Link className="underline text-sm cursor-pointer " to={`/${bike.id}`}>
+                <Link className="underline text-sm cursor-pointer text-blue-600 " to={`/${bike.id}`}>
                 {bike.title}
                 </Link>
                 <p>{bike.description || "--"}</p>
