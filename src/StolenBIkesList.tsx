@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useBike} from "./providers/BikeAPiProvider";
 import { Bike } from "./providers/models";
-import { Link } from "react-router-dom";
-
-
+import BikeListItem from "./components/BikeListItem";
 
 const StolenBikesList = () => {
 const [stolenBikes, setStolenBikes] = useState<Bike[]>([]); 
 
 const { getBikesList } = useBike();
+
 
     useEffect(() => {
        getBikesList().then((res) => {
@@ -18,14 +17,11 @@ const { getBikesList } = useBike();
     
     return (    
         <>
-         <ul>
-            {stolenBikes.length && stolenBikes.map((bikes) => (
-            <li key={bikes.id}>
-                <Link to={`/${bikes.id}`}>
-                    {bikes.title}  
-                </Link>
-            </li>))}         
-            </ul>
+            <div className="space-y-10">
+                {stolenBikes.length && stolenBikes.map((bike) => (
+                    <BikeListItem bike={bike} key={bike.id}/>
+                ))}         
+            </div>
         </>
     )
 

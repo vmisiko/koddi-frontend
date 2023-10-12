@@ -1,7 +1,8 @@
 import React from 'react'
-import './App.css'
 import BikeProvider from './providers/BikeAPiProvider'
 import { Outlet } from 'react-router-dom'
+import Header from './components/Header'
+import './assets/styles/index.css'
 
 type Props = {
   children: React.ReactNode,
@@ -11,7 +12,13 @@ function App(props: Props) {
     <>
       <BikeProvider>
         {props.children}
-        <Outlet></Outlet>
+        <div className='px-20 mt-10'>
+          <Header />
+          <div className='mt-10'>
+            <Outlet  />
+          </div>
+        </div>
+        
       </BikeProvider>
     </>
   )

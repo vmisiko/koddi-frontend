@@ -1,5 +1,5 @@
 export interface Bike {
-    date_stolen:               null;
+    date_stolen:               string;
     description:               null;
     frame_colors:              string[];
     frame_model:               null;
@@ -16,7 +16,7 @@ export interface Bike {
     stolen:                    boolean;
     stolen_coordinates:        null;
     stolen_location:           null;
-    thumb:                     null;
+    thumb:                     string;
     title:                     string;
     url:                       string;
     year:                      null;

@@ -12,7 +12,6 @@ const routeParams = useParams<{id: string}>();
 const { getBike } = useBike();
 
     useEffect(() => {
-        console.log(routeParams);
        getBike(routeParams.id as string).then((res) => {
             setStolenBike(res) ;
         });
