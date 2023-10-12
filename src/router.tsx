@@ -1,8 +1,8 @@
 
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import StolenBikesList from "./StolenBIkesList";
-import StolenBikeDetail from "./StolenBikeDetail";
+import StolenBikesList from "./pages/StolenBIkesList";
+import StolenBikeDetail from "./pages/StolenBikeDetail";
 
 const router = createBrowserRouter([
     {

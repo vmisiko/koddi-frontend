@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useBike} from "./providers/BikeAPiProvider";
-import { Bike } from "./providers/models";
+import { useBike} from "../providers/BikeAPiProvider";
+import { Bike } from "../providers/models";
 import { useParams } from "react-router-dom";
 
 
