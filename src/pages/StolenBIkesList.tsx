@@ -15,7 +15,7 @@ const StolenBikesList = () => {
         query: ""
     });
 
-    const { data: stolenBikes, error, isLoading}  = useQuery<BikeList>(['bikes'], () => getBikesList(filters));
+    const { data: stolenBikes, error, isLoading}  = useQuery<BikeList>(['bikes', filters], () => getBikesList(filters));
 
 
 
@@ -30,7 +30,7 @@ const StolenBikesList = () => {
     if (!stolenBikes?.bikes.length) {
         return <div>Not bikes Stolen reported yet.</div>;
     }
-
+    console.log(stolenBikes.pagination);
     return (    
         <> 
             <div className="my-4">

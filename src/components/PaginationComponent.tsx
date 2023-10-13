@@ -5,7 +5,6 @@ const PaginationComponent = ({ pagination, setPage }: {
     pagination: Pagination;
     setPage: (page: number) => void;
 }) => {
-    console.log(pagination);
     return (
         <div className="flex w-full space-x-4">
             <button
@@ -39,7 +38,7 @@ const PaginationComponent = ({ pagination, setPage }: {
             <button
                 className="border border-gray-300 shadow-md px-4 hover:bg-gray-100 rounded"
                 onClick={() => setPage(pagination.page + 1)}
-                disabled={pagination.hasNextPage}
+                disabled={!pagination.hasNextPage}
             >
                 Next
             </button>  
@@ -47,7 +46,7 @@ const PaginationComponent = ({ pagination, setPage }: {
             <button
                 className="border border-gray-300 shadow-md px-4 hover:bg-gray-100 rounded"
                 onClick={() => setPage(pagination.lastPage)}
-                disabled={pagination.hasNextPage}
+                disabled={!pagination.hasNextPage}
             >
                 Last &raquo;
             </button>      
