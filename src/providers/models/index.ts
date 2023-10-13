@@ -1,12 +1,13 @@
+
 export interface Bike {
     date_stolen:               string;
-    description:               null;
+    description:               string;
     frame_colors:              string[];
-    frame_model:               null;
+    frame_model:               string;
     id:                        number;
     is_stock_img:              boolean;
-    large_img:                 null;
-    location_found:            string;
+    large_img:                 string;
+    location_found:            null;
     manufacturer_name:         string;
     external_id:               null;
     registry_name:             null;
@@ -14,19 +15,19 @@ export interface Bike {
     serial:                    string;
     status:                    string;
     stolen:                    boolean;
-    stolen_coordinates:        null;
-    stolen_location:           null;
+    stolen_coordinates:        number[];
+    stolen_location:           string;
     thumb:                     string;
     title:                     string;
     url:                       string;
-    year:                      null;
+    year:                      number;
     registration_created_at:   number;
     registration_updated_at:   number;
     api_url:                   string;
     manufacturer_id:           number;
     paint_description:         null;
     name:                      null;
-    frame_size:                null;
+    frame_size:                string;
     rear_tire_narrow:          boolean;
     front_tire_narrow:         null;
     type_of_cycle:             string;
@@ -37,10 +38,34 @@ export interface Bike {
     frame_material_slug:       null;
     front_gear_type_slug:      null;
     rear_gear_type_slug:       null;
-    extra_registration_number: null;
-    additional_registration:   null;
+    extra_registration_number: string;
+    additional_registration:   string;
     propulsion_type_slug:      string;
-    stolen_record:             null;
-    public_images:             any[];
+    stolen_record:             StolenRecord;
+    public_images:             PublicImage[];
     components:                any[];
+}
+
+export interface PublicImage {
+    name:   string;
+    full:   string;
+    large:  string;
+    medium: string;
+    thumb:  string;
+    id:     number;
+}
+
+export interface StolenRecord {
+    date_stolen:              number;
+    location:                 string;
+    latitude:                 number;
+    longitude:                number;
+    theft_description:        string;
+    locking_description:      string;
+    lock_defeat_description:  string;
+    police_report_number:     string;
+    police_report_department: string;
+    created_at:               number;
+    create_open311:           boolean;
+    id:                       number;
 }
