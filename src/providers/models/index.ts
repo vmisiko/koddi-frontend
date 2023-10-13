@@ -69,3 +69,68 @@ export interface StolenRecord {
     create_open311:           boolean;
     id:                       number;
 }
+
+
+export class BikeList {
+    public bikes: Bike[];
+    public currentPage: number;
+    public itemsPerPage: number;
+    public total: number;
+    
+    constructor(
+        {   
+            bikes,
+            currentPage,
+            itemsPerPage,
+            total,  
+        }: {
+            bikes: Bike[],
+            currentPage: number,
+            itemsPerPage: number,
+            total: number,
+        }
+    ) { 
+        this.bikes = bikes;
+        this.currentPage = currentPage;
+        this.itemsPerPage = itemsPerPage;
+        this.total = total;
+    }
+
+    get pagination():Pagination {
+        const total = 136894 // have harcorded total to help in pagination as the api does not return total
+        return {
+            total: total,
+            page: this.currentPage,
+            perPage: this.itemsPerPage,
+            lastPage: Math.ceil(total / this.itemsPerPage),
+            hasNextPage: this.currentPage < Math.ceil(total / this.itemsPerPage),
+            hasPreviousPage: this.currentPage > 1,
+        }
+        
+    }
+
+    static async instance(bikes: Bike[], filters?: Filters)  {
+        const currentPage = filters?.page ?? 1;
+        const itemsPerPage = filters?.per_page ?? 10;
+        const total: number = bikes.length;
+        return new BikeList({ bikes, currentPage, itemsPerPage, total });
+    }
+    
+}
+
+export interface Filters {
+    page: number;
+    per_page: number;
+    query: string | '';
+}
+
+
+export interface Pagination {
+    total: number;
+    page: number;
+    perPage: number;
+    lastPage: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+
+}

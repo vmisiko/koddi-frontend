@@ -1,35 +1,56 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useBike} from "../providers/BikeAPiProvider";
-import { Bike } from "../providers/models";
+import { BikeList, Filters } from "../providers/models";
 import BikeListItem from "../components/BikeListItem";
-import Filters from "../components/Filters";
+import FilterComponent from "../components/FilterComponent";
 import PaginationComponent from "../components/PaginationComponent";
+import { useQuery } from "@tanstack/react-query";
 
 const StolenBikesList = () => {
-const [stolenBikes, setStolenBikes] = useState<Bike[]>([]); 
 
-const { getBikesList } = useBike();
+    const { getBikesList } = useBike();
+    const [filters, setFilters] = useState<Filters>({
+        page: 1,
+        per_page: 10,
+        query: ""
+    });
+
+    const { data: stolenBikes, error, isLoading}  = useQuery<BikeList>(['bikes'], () => getBikesList(filters));
 
 
-    useEffect(() => {
-       getBikesList().then((res) => {
-            setStolenBikes(res) ;
-        });
-    }, []);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error as string}</div>;
+    }
     
+    if (!stolenBikes?.bikes.length) {
+        return <div>Not bikes Stolen reported yet.</div>;
+    }
+
     return (    
         <> 
             <div className="my-4">
-                <Filters />
+                <FilterComponent filters={filters} onSubmit={() => setFilters(filters) }  />
             </div>
+            <div className="flex justify-end mt-10 mb-5">
+                    <span> Total: {stolenBikes.pagination.total}</span>
+                </div>
             <div className="space-y-10">
-                {stolenBikes.length && stolenBikes.map((bike) => (
+                
+                {stolenBikes.bikes.length && stolenBikes.bikes.map((bike) => (
                     <BikeListItem bike={bike} key={bike.id}/>
                 ))}         
             </div>
 
             <div className="my-4">
-                <PaginationComponent page={1} setPage={() => {}} totalPage={20} ></PaginationComponent>
+                <PaginationComponent pagination={stolenBikes.pagination}  setPage={(value) => setFilters(
+                    {...filters, page: value}
+
+                )}></PaginationComponent>
             </div>
         </>
     )

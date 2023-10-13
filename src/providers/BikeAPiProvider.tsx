@@ -1,14 +1,14 @@
 import React, { createContext, useContext, FC } from "react";
-import { Bike } from "./models";
+import { Bike, BikeList, Filters } from "./models";
 
 type BikeContextType = {
-  getBikesList: () => Promise<Bike[]>;
+  getBikesList: (filter?: Filters) => Promise<BikeList>;
   getBike: (id: string) => Promise<Bike>;
 };
 
 
 const defaultValue: BikeContextType = {
-  getBikesList: async () => [],
+  getBikesList: async () => { return {} as BikeList},
   getBike: async (id: string) => { return {} as Bike},
 };
 
@@ -22,12 +22,22 @@ type Props = {
 
 const BikeProvider: FC<Props> = ({ children }) => {
 
-  const getBikesList = async () => {
+  const objectToQueryString = (params?: Filters) => {
+    if (params === undefined) {
+      return '';
+    }
+    const queryString = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key as keyof Filters])}`)
+      .join('&');
+    return queryString;
+  }
+  
+
+  const getBikesList = async (filters?: Filters) => {
     try {
-      const res = await fetch('https://bikeindex.org/api/v3/search?page=1&per_page=25&location=IP&distance=10&stolenness=stolen');
-      const data = await res.json();
-      console.log(data);
-      return data.bikes;
+      const res = await fetch('https://bikeindex.org/api/v3/search?' + objectToQueryString(filters));
+      const {bikes} = await res.json();
+      return BikeList.instance(bikes, filters);
     } catch (error) {
       throw new Error('Error fetching bike list: ' + error);
     }
