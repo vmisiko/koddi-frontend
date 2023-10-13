@@ -15,11 +15,6 @@ const { getBike } = useBike();
 
     const { data: stolenBike, error, isLoading}  = useQuery<Bike>(['bike', routeParams.id], () => getBike(routeParams.id as string));
     
-    // useEffect(() => {
-    //    getBike(routeParams.id as string).then((res) => {
-    //         setStolenBike(res) ;
-    //     });
-    // }, [routeParams]);
     if (isLoading) {
         return <div>Loading...</div>;
     }
