@@ -1,24 +1,37 @@
-import { useEffect, useState } from "react";
 import { useBike} from "../providers/BikeAPiProvider";
 import { Bike } from "../providers/models";
 import { useParams } from "react-router-dom";
 import useTimeZone from "../core/utility";
 import GoogleMap from "../components/GoogleMap";
+import { useQuery } from "@tanstack/react-query";
 
 
 const StolenBikesList = () => {
-const [stolenBike, setStolenBike] = useState<Bike>({} as Bike); 
 
 const routeParams = useParams<{id: string}>();
 
 const { getBike } = useBike();
     const {formaDateTimeYearMonthDay } = useTimeZone();
 
-    useEffect(() => {
-       getBike(routeParams.id as string).then((res) => {
-            setStolenBike(res) ;
-        });
-    }, [routeParams]);
+    const { data: stolenBike, error, isLoading}  = useQuery<Bike>(['bike', routeParams.id], () => getBike(routeParams.id as string));
+    
+    // useEffect(() => {
+    //    getBike(routeParams.id as string).then((res) => {
+    //         setStolenBike(res) ;
+    //     });
+    // }, [routeParams]);
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error as string}</div>;
+    }
+
+    if (!stolenBike) {
+        return <div>Not found</div>;
+    }
+    
     
     return (    
         <>
