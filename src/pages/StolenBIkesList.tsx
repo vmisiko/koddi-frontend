@@ -30,7 +30,6 @@ const StolenBikesList = () => {
     if (!stolenBikes?.bikes.length) {
         return <div>Not bikes Stolen reported yet.</div>;
     }
-    console.log(stolenBikes.pagination);
     return (    
         <> 
             <div className="my-4">
