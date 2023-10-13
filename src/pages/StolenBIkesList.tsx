@@ -33,7 +33,7 @@ const StolenBikesList = () => {
     return (    
         <> 
             <div className="my-4">
-                <FilterComponent filters={filters} onSubmit={() => setFilters(filters) }  />
+                <FilterComponent filters={filters} onSubmit={(val) => setFilters(val) }  />
             </div>
             <div className="flex justify-end mt-10 mb-5">
                     <span> Total: {stolenBikes.pagination.total}</span>

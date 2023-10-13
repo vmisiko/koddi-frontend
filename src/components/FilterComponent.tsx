@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Filters } from "../providers/models";
-import { Form } from "react-router-dom";
 
 const FilterComponent = ({filters, onSubmit}: {
     filters: Filters;
