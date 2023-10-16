@@ -9,7 +9,7 @@ type BikeContextType = {
 
 const defaultValue: BikeContextType = {
   getBikesList: async () => { return {} as BikeList},
-  getBike: async (id: string) => { return {} as Bike},
+  getBike: async () => { return {} as Bike},
 };
 
 export const BikeContext = createContext<BikeContextType>(defaultValue);
