@@ -14,7 +14,7 @@ function App(props: Props) {
       <QueryClientProvider client={ new QueryClient()}>
         <BikeProvider>
           {props.children}
-          <div className='px-20 mt-10'>
+          <div className='px-4 md:px-20 mt-10'>
             <Header />
             <div className='mt-10'>
               <Outlet  />
